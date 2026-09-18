@@ -67,7 +67,6 @@ export default function App() {
     const previousProducts = products;
     setProducts((current) => [temporaryProduct, ...current]);
     setSubmitting(true);
-    setModal(null);
 
     try {
       const response = await createProduct({
@@ -82,6 +81,7 @@ export default function App() {
       )));
       setToast({ type: 'success', title: 'Product created' });
       setLastAction(null);
+      setModal(null);
     } catch (error) {
       setProducts(previousProducts);
       setToast({ type: 'error', title: 'Create failed', message: 'The optimistic update was rolled back.', retry: false });
@@ -101,7 +101,6 @@ export default function App() {
       product.id === selected.id ? optimisticProduct : product
     )));
     setSubmitting(true);
-    setModal(null);
 
     try {
       const response = await updateProduct(selected.id, values);
@@ -110,6 +109,7 @@ export default function App() {
       )));
       setToast({ type: 'success', title: 'Product updated' });
       setLastAction(null);
+      setModal(null);
     } catch (error) {
       setProducts(previousProducts);
       setToast({ type: 'error', title: 'Update failed', message: 'The optimistic update was rolled back.' });
